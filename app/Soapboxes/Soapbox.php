@@ -14,7 +14,7 @@ class Soapbox extends Model
 
     public function getSoapboxId(): int
     {
-        return $this->soapboxId();
+        return $this->soapbox_id;
     }
 
     public static function findByTenantId(string $tenantId): Soapbox

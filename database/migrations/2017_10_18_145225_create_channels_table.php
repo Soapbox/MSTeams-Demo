@@ -15,6 +15,7 @@ class CreateChannelsTable extends Migration
     {
         Schema::create('channels', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('soapbox_id');
             $table->string('soapbox_channel_id')->unique();
             $table->string('microsoft_channel_id')->unique();
             $table->timestamps();

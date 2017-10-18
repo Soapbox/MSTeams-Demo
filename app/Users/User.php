@@ -20,8 +20,14 @@ class User extends Model
         return $this->token;
     }
 
+    public function getSoapboxId(): int
+    {
+        return $this->soapbox_id;
+    }
+
     public static function findByMicrosoftId(string $microsoftUserId): User
     {
         return User::where('microsoft_user_id', $microsoftUserId)->firstOrFail();
     }
+
 }

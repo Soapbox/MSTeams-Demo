@@ -49,7 +49,7 @@ class Channels extends Controller
             $user = User::findByMicrosoftId($userId);
         } catch (ModelNotFoundException $e) {
             $user = new User([
-                'soapbox_id' => $soapbox->getKey(),
+                'soapbox_id' => $soapbox->getSoapboxId(),
                 'soapbox_user_id' => $res['soapbox_user_id'],
                 'microsoft_user_id' => $userId,
                 'email' => $userEmail,
@@ -75,6 +75,7 @@ class Channels extends Controller
             $remoteChannel = $res->getDecodedContents();
 
             $channel = new Channel([
+                'soapbox_id' => $soapbox->getSoapboxId(),
                 'soapbox_channel_id' => $remoteChannel['data']['id'],
                 'microsoft_channel_id' => $channelId
             ]);

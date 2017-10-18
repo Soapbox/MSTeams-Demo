@@ -4,6 +4,7 @@ namespace App\Remote;
 
 use App\Users\User;
 use App\Remote\Client;
+use App\Channels\Channel;
 
 class V5Api
 {
@@ -45,6 +46,30 @@ class V5Api
             ->newRequest('/users/me/auto')
             ->setJwt($user->getToken())
             ->get();
+
+        return $response;
+    }
+
+    public function createUser(Channel $channel, array $data)
+    {
+        $response = $this->client
+            ->newSignedRequest('/soapboxes/' . $channel->getSoapboxId() . '/users')
+            ->setJson($data)
+            ->post();
+
+        return $response;
+    }
+
+    public function inviteToChannel(Channel $channel, User $inviter, User $user, string $role)
+    {
+        $response = $this->client
+            ->newRequest(sprintf('/channels/%s/users', $channel->getSoapboxChannelId()))
+            ->setJwt($inviter->getToken())
+            ->setJson([
+                'user-id' => $user->getSoapboxId(),
+                'user-type' => $role
+            ])
+            ->post();
 
         return $response;
     }
