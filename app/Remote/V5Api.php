@@ -31,10 +31,20 @@ class V5Api
     public function createChannel(User $user, array $data)
     {
         $response = $this->client
-            ->newSignedRequest('/channels')
+            ->newRequest('/channels')
             ->setJwt($user->getToken())
             ->setJson($data)
             ->post();
+
+        return $response;
+    }
+
+    public function generateAutoLogin(User $user)
+    {
+        $response = $this->client
+            ->newRequest('/users/me/auto')
+            ->setJwt($user->getToken())
+            ->get();
 
         return $response;
     }

@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\View\View;
+use App\Remote\V5Api as Api;
 use Illuminate\Http\Request;
 use Illuminate\View\Factory;
 use Laravel\Socialite\Facades\Socialite;
 
 class TeamsController extends Controller
 {
-    public function index(Factory $factory): View
+    public function index(Factory $factory, Api $api): View
     {
-        return $factory->make('teams.index');
+        return $factory->make('teams.index', [
+            'api' => $api
+        ]);
     }
 
     public function signup(Factory $factory): View

@@ -41,6 +41,13 @@ class Request
         return $this->setHeader('Authorization', sprintf('Bearer %s', $jwt));
     }
 
+    public function get(): Response
+    {
+        $header = sprintf('application/vnd.api%s+json', $this->version);
+        $this->setHeader('Accept', $header);
+        return $this->sendRequest($this->client, 'GET', $this->uri, $this->options->toArray());
+    }
+
     public function post(): Response
     {
         $this->setHeader('Content-Type', 'application/json');

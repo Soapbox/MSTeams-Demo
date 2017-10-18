@@ -13,13 +13,13 @@ class Client
 
     public function __construct(Repository $config)
     {
-        $this->signedClient = new GuzzleClient(['base_uri' => 'http://api.team.dev']);
+        $this->signedClient = new GuzzleClient(['base_uri' => 'https://obiapi.ngrok.io']);
         $this->signedClient->getConfig('handler')->push($this->generateSignature(), 'signed_requests');
     }
 
     public function newRequest(string $path): Request
     {
-        return new Request(new GuzzleClient(['base_uri' => 'http://api.team.dev']));
+        return new Request(new GuzzleClient(['base_uri' => 'https://obiapi.ngrok.io']), $path);
     }
 
     public function newSignedRequest(string $path): Request

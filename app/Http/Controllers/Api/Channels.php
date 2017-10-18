@@ -17,8 +17,8 @@ class Channels extends Controller
     public function store(Request $request, Api $api)
     {
         $tenantId = $request->input('tenant.id');
-        $soapboxName = Str::random(16);
-        $soapboxSlug = Str::slug($soapboxName);
+        $soapboxName = 'obitest';
+        $soapboxSlug = 'obitest';
         $userId = $request->input('actor.id');
         $userName = $request->input('actor.name');
         $userEmail = $request->input('actor.email');

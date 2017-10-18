@@ -53,11 +53,18 @@
         <div>
             <?php
                 if (isset($_COOKIE['msteams-id']) && isset($_COOKIE['msteams-token'])) {
-                    echo "Great! Let me redirect you to GoodTalk";
+                    echo "Great! Let me redirect you to GoodTalk<br/>";
+
+                    $user = App\Users\User::findByMicrosoftId($_COOKIE['msteams-id']);
+                    $res = $api->generateAutoLogin($user);
+                    $data = $res->getDecodedContents();
+                    $token = $data->get('token');
+                    echo "http://obitest.ngrok.io?autoLogin=" . $token;
+
                     echo "
                         <script text='text/javascript'>
                             setTimeout(function() {
-                                microsoftTeams.navigateCrossDomain('https://soapboxers.soapboxhq.com');
+                                microsoftTeams.navigateCrossDomain('https://obitest.ngrok.io?autoLogin={$token}');
                             }, 2000);
                         </script>
                     ";
