@@ -25,9 +25,13 @@ class User extends Model
         return $this->soapbox_id;
     }
 
+    public function getSoapboxUserId(): int
+    {
+        return $this->soapbox_user_id;
+    }
+
     public static function findByMicrosoftId(string $microsoftUserId): User
     {
         return User::where('microsoft_user_id', $microsoftUserId)->firstOrFail();
     }
-
 }

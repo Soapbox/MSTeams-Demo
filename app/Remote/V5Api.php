@@ -66,7 +66,7 @@ class V5Api
             ->newRequest(sprintf('/channels/%s/users', $channel->getSoapboxChannelId()))
             ->setJwt($inviter->getToken())
             ->setJson([
-                'user-id' => $user->getSoapboxId(),
+                'user-id' => $user->getSoapboxUserId(),
                 'user-type' => $role
             ])
             ->post();

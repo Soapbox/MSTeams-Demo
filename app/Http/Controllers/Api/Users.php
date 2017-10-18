@@ -32,6 +32,7 @@ class Users extends Controller
             return new Response('User not found', 404);
         }
 
+
         $userId = $request->input('user.id');
         $name = $request->input('user.name');
         $email = $request->input('user.email');
@@ -58,7 +59,7 @@ class Users extends Controller
             $user->save();
         }
 
-        // $api->inviteToChannel($channel, $inviter, $user, 'employee');
+        $api->inviteToChannel($channel, $inviter, $user, 'employee');
 
         return new Response();
         // $userId = $request->input('user.id');
