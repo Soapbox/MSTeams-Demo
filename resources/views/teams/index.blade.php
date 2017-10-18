@@ -9,8 +9,6 @@
                 microsoftTeams.initialize();
 
                 // microsoftTeams.getContext(function(context) {
-                //     $('#messageBox').html('Welcome to GoodTalk for Microsoft Teams!!');
-
                 //     for (key in context) {
                 //         var field = context[key];
 
@@ -50,6 +48,8 @@
     </head>
 
     <body>
+        <div id='blarg'>
+        </div>
         <div>
             <?php
                 if (isset($_COOKIE['msteams-id']) && isset($_COOKIE['msteams-token'])) {
@@ -59,7 +59,6 @@
                     $res = $api->generateAutoLogin($user);
                     $data = $res->getDecodedContents();
                     $token = $data->get('token');
-                    echo "http://obitest.ngrok.io?autoLogin=" . $token;
 
                     echo "
                         <script text='text/javascript'>
@@ -80,13 +79,8 @@
                                     width: 1150,
                                     height: 650,
                                     successCallback: function(token) {
-                                        console.log('SUCCESS');
-                                        console.log('********');
-                                        console.log(token);
-                                        console.log('********');
-
                                         setTimeout(function() {
-                                            microsoftTeams.navigateCrossDomain('https://soapboxers.soapboxhq.com');
+                                            microsoftTeams.navigateCrossDomain('https://obiwong.ngrok.io/teams');
                                         }, 2000);
                                     },
                                     failureCallback: function() {

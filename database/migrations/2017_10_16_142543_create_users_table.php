@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('microsoft_user_id')->unique();
             $table->string('email')->unique();
             $table->string('name');
-            $table->string('token');
+            $table->text('token');
             $table->timestamps();
         });
     }
