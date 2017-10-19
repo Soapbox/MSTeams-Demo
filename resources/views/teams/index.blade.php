@@ -75,25 +75,25 @@
                     $data = $res->getDecodedContents();
                     $token = $data->get('token');
 
-                    echo "
-                        <script type='text/javascript'>
-                            setTimeout(function() {
-                                var baseUrl = 'https://obitest.ngrok.io';
+                    // echo "
+                    //     <script type='text/javascript'>
+                    //         setTimeout(function() {
+                    //             var baseUrl = 'https://obitest.ngrok.io';
 
-                                if (channelId) {
-                                    var url = baseUrl + '/channels/' + channelId + '/inbox';
-                                } else {
-                                    var url = baseUrl;
-                                }
+                    //             if (channelId) {
+                    //                 var url = baseUrl + '/channels/' + channelId + '/inbox';
+                    //             } else {
+                    //                 var url = baseUrl;
+                    //             }
 
-                                url += '?autoLogin={$token}';
+                    //             url += '?autoLogin={$token}';
 
-                                console.log(url);
+                    //             console.log(url);
 
-                                microsoftTeams.navigateCrossDomain(url);
-                            }, 2000);
-                        </script>
-                    ";
+                    //             microsoftTeams.navigateCrossDomain(url);
+                    //         }, 2000);
+                    //     </script>
+                    // ";
                 } else {
                     echo "You're not logged in. Do the log in thing please.<br/><br/>";
                     echo "<img id='signin' src='https://developer.microsoft.com/en-us/graph/vendor/bower_components/explorer/assets/images/MSSignInButton.svg'/>";

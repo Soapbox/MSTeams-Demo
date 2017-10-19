@@ -2,6 +2,8 @@
     <head>
         <script src="https://statics.teams.microsoft.com/sdk/v1.0/js/MicrosoftTeams.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
         <script type='text/javascript'>
             const WIDTH = 1150;
@@ -27,7 +29,8 @@
                         width: WIDTH,
                         height: HEIGHT,
                         successCallback: function(token) {
-                            $('#container').hide();
+                            // $('#container').hide();
+                            $('#container').addClass('animated hinge');
                             $('#success').show();
                             microsoftTeams.settings.setValidityState(true);
                         },
