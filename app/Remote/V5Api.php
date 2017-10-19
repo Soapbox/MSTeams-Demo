@@ -73,4 +73,13 @@ class V5Api
 
         return $response;
     }
+
+    public function userJwt(User $user)
+    {
+        $response = $this->client
+            ->newRequest(sprintf('/msteams/user/%s', $user->getSoapboxUserId()))
+            ->get();
+
+        return $response;
+    }
 }

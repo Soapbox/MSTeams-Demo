@@ -34,4 +34,11 @@ class User extends Model
     {
         return User::where('microsoft_user_id', $microsoftUserId)->firstOrFail();
     }
+
+    public function setToken(string $token): User
+    {
+        $this->token = $token;
+
+        return $this;
+    }
 }

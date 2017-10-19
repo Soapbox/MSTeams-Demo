@@ -11,11 +11,11 @@
                 microsoftTeams.initialize();
 
                 microsoftTeams.getContext(function(context) {
-                    for (key in context) {
-                        var field = context[key];
+                    // for (key in context) {
+                    //     var field = context[key];
 
-                        $('#blarg').append('<p>' + key + ': ' + field + '</p>');
-                    }
+                    //     $('#blarg').append('<p>' + key + ': ' + field + '</p>');
+                    // }
 
                     $.get('https://obiwong.ngrok.io/api/channels?id=' + context.channelId, function(r) {
                         channelId = r.channel.soapbox_channel_id;
@@ -62,6 +62,10 @@
                     echo "Great! Let me redirect you to GoodTalk<br/>";
 
                     $user = App\Users\User::findByMicrosoftId($_COOKIE['msteams-id']);
+                    $res = $api->userJwt($user);
+                    $jwt = $res->getDecodedContents()->get('token');
+                    $user->setToken($jwt)
+                        ->save();
                     $res = $api->generateAutoLogin($user);
                     $data = $res->getDecodedContents();
                     $token = $data->get('token');
@@ -78,6 +82,8 @@
                                 }
 
                                 url += '?autoLogin={$token}';
+
+                                console.log(url);
 
                                 microsoftTeams.navigateCrossDomain(url);
                             }, 2000);
