@@ -8,6 +8,7 @@ use App\Remote\V5Api as Api;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Users extends Controller
@@ -59,26 +60,14 @@ class Users extends Controller
             $user->save();
         }
 
-        $api->inviteToChannel($channel, $inviter, $user, 'employee');
+        try {
+            $api->inviteToChannel($channel, $inviter, $user, 'employee');
+        } catch (ClientException $e) {
+            if ($e->getCode() != Response::HTTP_UNPROCESSABLE_ENTITY) {
+                throw $e;
+            }
+        }
 
         return new Response();
-        // $userId = $request->input('user.id');
-        // $userName = $request->input('user.name');
-        // $userEmail = $request->input('user.email');
-
-        // $user = User::findOrCreate($userId, $channel->soapbox, $userName, $userEmail);
-
-        // if (!$user->isSynced()) {
-        //     $response = (new UserService())->invite($actor, $user);
-        //     $user->updateGoodTalkId($response->getDecodedContents()['data']['id']);
-        // }
-
-        // try {
-        //     (new ChannelService())->addUser($channel, $actor, $user, $request->input('user.role'));
-        // } catch (ClientException $exception) {
-        //     if ($exception->getCode() != Response::HTTP_UNPROCESSABLE_ENTITY) {
-        //         throw $exception;
-        //     }
-        // }
     }
 }
