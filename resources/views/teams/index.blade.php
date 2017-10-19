@@ -5,16 +5,22 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
         <script type='text/javascript'>
+            var channelId;
+
             $(document).ready(function() {
                 microsoftTeams.initialize();
 
-                // microsoftTeams.getContext(function(context) {
-                //     for (key in context) {
-                //         var field = context[key];
+                microsoftTeams.getContext(function(context) {
+                    for (key in context) {
+                        var field = context[key];
 
-                //         $('#blarg').append('<p>' + key + ': ' + field + '</p>');
-                //     }
-                // });
+                        $('#blarg').append('<p>' + key + ': ' + field + '</p>');
+                    }
+
+                    $.get('https://obiwong.ngrok.io/api/channels?id=' + context.channelId, function(r) {
+                        channelId = r.channel.soapbox_channel_id;
+                    });
+                });
             });
 
             function getAuthUrl()
@@ -61,9 +67,19 @@
                     $token = $data->get('token');
 
                     echo "
-                        <script text='text/javascript'>
+                        <script type='text/javascript'>
                             setTimeout(function() {
-                                microsoftTeams.navigateCrossDomain('https://obitest.ngrok.io?autoLogin={$token}');
+                                var baseUrl = 'https://obitest.ngrok.io';
+
+                                if (channelId) {
+                                    var url = baseUrl + '/channels/' + channelId + '/inbox';
+                                } else {
+                                    var url = baseUrl;
+                                }
+
+                                url += '?autoLogin={$token}';
+
+                                microsoftTeams.navigateCrossDomain(url);
                             }, 2000);
                         </script>
                     ";

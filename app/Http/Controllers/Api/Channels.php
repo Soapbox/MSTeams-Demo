@@ -14,6 +14,17 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Channels extends Controller
 {
+    public function get(Request $request)
+    {
+        \Log::info($request->all());
+
+        $channel = Channel::findByMicrosoftId($request->input('id'));
+
+        return new Response([
+            'channel' => $channel->toArray()
+        ]);
+    }
+
     public function store(Request $request, Api $api)
     {
         $tenantId = $request->input('tenant.id');

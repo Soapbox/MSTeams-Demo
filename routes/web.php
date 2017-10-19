@@ -20,5 +20,6 @@ Route::group(['prefix' => 'teams'], function () {
 
 Route::group(['prefix' => 'api', 'namespace' => 'Api'], function () {
     Route::post('/channels', 'Channels@store');
+    Route::get('/channels', 'Channels@get');
     Route::post('/users/invite', 'Users@invite');
 });
