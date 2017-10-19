@@ -27,15 +27,11 @@
                         width: WIDTH,
                         height: HEIGHT,
                         successCallback: function(token) {
-                            console.log('SUCCESS');
-                            console.log('********');
-                            console.log(token);
-                            console.log('********');
-
+                            $('#container').hide();
+                            $('#success').show();
                             microsoftTeams.settings.setValidityState(true);
                         },
                         failureCallback: function() {
-                            console.log('FAILURE');
                             microsoftTeams.settings.setValidityState(false);
                         }
                     });
@@ -69,6 +65,12 @@
                 height: 50px;
                 cursor: pointer;
             }
+
+            #success {
+                display: none;
+                text-align: center;
+                font-size: 20px;
+            }
         </style>
     </head>
 
@@ -76,6 +78,9 @@
         <div id='container'>
             <p>You'll need to sign in with Microsoft to validate your identity and say things with GreatTalk!</p>
             <img id='signin' src='https://developer.microsoft.com/en-us/graph/vendor/bower_components/explorer/assets/images/MSSignInButton.svg'/>
+        </div>
+        <div id='success'>
+            You did it! Click save to go to your GoodTalk tab!
         </div>
     </body>
 </html>

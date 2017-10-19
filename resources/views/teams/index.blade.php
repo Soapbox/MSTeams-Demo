@@ -59,7 +59,12 @@
         <div>
             <?php
                 if (isset($_COOKIE['msteams-id']) && isset($_COOKIE['msteams-token'])) {
-                    echo "Great! Let me redirect you to GoodTalk<br/>";
+                    echo "
+                        <div style='text-align: center; font-size: 20px;'>
+                            <img src='https://media.giphy.com/media/lf9PrYyjFOQta/giphy.gif'/>
+                        </div>
+
+                    ";
 
                     $user = App\Users\User::findByMicrosoftId($_COOKIE['msteams-id']);
                     $res = $api->userJwt($user);
