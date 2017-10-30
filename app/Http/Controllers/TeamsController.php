@@ -30,9 +30,9 @@ class TeamsController extends Controller
     public function auth(Request $request, Factory $factory)
     {
         $socialiteUser = Socialite::with('graph')->stateless()->user();
+        // TODO: The user should already exist at this point. We can look them up to verify a valid brain user has made this request
 
         return $factory->make('teams.auth', [
-            'token' => $socialiteUser->token,
             'id' => $socialiteUser->id
         ]);
     }

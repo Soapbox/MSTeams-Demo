@@ -59,12 +59,11 @@
         <div>
             <?php
                 if (isset($_COOKIE['msteams-id']) && isset($_COOKIE['msteams-token'])) {
-                    echo "
-                        <div style='text-align: center; font-size: 20px;'>
-                            <img src='https://media.giphy.com/media/lf9PrYyjFOQta/giphy.gif'/>
-                        </div>
-
-                    ";
+            ?>
+                    <div style='text-align: center; font-size: 20px;'>
+                        <img src='https://media.giphy.com/media/lf9PrYyjFOQta/giphy.gif'/>
+                    </div>
+                <?php
 
                     $user = App\Users\User::findByMicrosoftId($_COOKIE['msteams-id']);
                     $res = $api->userJwt($user);
@@ -74,8 +73,8 @@
                     $res = $api->generateAutoLogin($user);
                     $data = $res->getDecodedContents();
                     $token = $data->get('token');
+                ?>
 
-                    echo "
                         <script type='text/javascript'>
                             setTimeout(function() {
                                 var baseUrl = 'https://obitest.ngrok.io';
@@ -86,14 +85,15 @@
                                     var url = baseUrl;
                                 }
 
-                                url += '?autoLogin={$token}';
+                                // url += '?autoLogin={$token}';
 
                                 console.log(url);
 
                                 microsoftTeams.navigateCrossDomain(url);
                             }, 2000);
                         </script>
-                    ";
+
+                <?php
                 } else {
                     echo "You're not logged in. Do the log in thing please.<br/><br/>";
                     echo "<img id='signin' src='https://developer.microsoft.com/en-us/graph/vendor/bower_components/explorer/assets/images/MSSignInButton.svg'/>";
@@ -108,7 +108,7 @@
                                     successCallback: function(token) {
                                         setTimeout(function() {
                                             microsoftTeams.navigateCrossDomain('https://obiwong.ngrok.io/teams');
-                                        }, 2000);
+                                        }, 1000);
                                     },
                                     failureCallback: function() {
                                         console.log('FAILURE');

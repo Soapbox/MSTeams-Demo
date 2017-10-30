@@ -12,6 +12,14 @@
             $(document).ready(function() {
                 microsoftTeams.initialize();
 
+                microsoftTeams.getContext(function(context) {
+                    for (key in context) {
+                        var field = context[key];
+
+                        $('#blarg').append('<p>' + key + ': ' + field + '</p>');
+                    }
+                });
+
                 microsoftTeams.settings.registerOnSaveHandler(function(saveEvent){
                     microsoftTeams.settings.setSettings({
                         entityId: "goodtalk",
@@ -29,7 +37,6 @@
                         width: WIDTH,
                         height: HEIGHT,
                         successCallback: function(token) {
-                            // $('#container').hide();
                             $('#container').addClass('animated hinge');
                             $('#success').show();
                             microsoftTeams.settings.setValidityState(true);
@@ -74,6 +81,11 @@
                 text-align: center;
                 font-size: 20px;
             }
+
+            #container {
+              -webkit-animation-duration: 2s;
+              -webkit-animation-delay: 2s;
+            }
         </style>
     </head>
 
@@ -82,6 +94,7 @@
             <p>You'll need to sign in with Microsoft to validate your identity and say things with GreatTalk!</p>
             <img id='signin' src='https://developer.microsoft.com/en-us/graph/vendor/bower_components/explorer/assets/images/MSSignInButton.svg'/>
         </div>
+        <!-- <div id='blarg'></div> -->
         <div id='success'>
             You did it! Click save to go to your GoodTalk tab!
         </div>
