@@ -96,7 +96,7 @@
         </div>
         <!-- <div id='blarg'></div> -->
         <div id='success'>
-            You did it! Click save to go to your GoodTalk tab!
+            You're all set up! Click save to go to your GoodTalk tab!
         </div>
     </body>
 </html>

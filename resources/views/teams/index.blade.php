@@ -108,7 +108,7 @@
                                     successCallback: function(token) {
                                         setTimeout(function() {
                                             microsoftTeams.navigateCrossDomain('https://obiwong.ngrok.io/teams');
-                                        }, 1000);
+                                        }, 250);
                                     },
                                     failureCallback: function() {
                                         console.log('FAILURE');
